@@ -31,8 +31,8 @@ local function Check()
 	-- Not checking for now, since these enchants don't really have much benefit
 --~ 	enchantables.WaistSlot = GetSpellInfo((GetSpellInfo(4036)))
 
-	local _, _, _, _, _, _, rangetype = GetItemInfo(links.RangedSlot)
-	enchantables.RangedSlot = links.RangedSlot and rangetype ~= "Wands" and rangetype ~= "Thrown" -- Can't enchant wands or thrown weapons
+	local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
+	enchantables.RangedSlot = links.RangedSlot and slottype ~= "INVTYPE_RELIC" and rangetype ~= "Wands" and rangetype ~= "Thrown" -- Can't enchant wands or thrown weapons
 	enchantables.SecondaryHandSlot = links.SecondaryHandSlot and select(9, GetItemInfo(links.SecondaryHandSlot)) ~= "INVTYPE_HOLDABLE" -- nor off-hand frills
 
 	extrasockets.HandsSlot = GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
