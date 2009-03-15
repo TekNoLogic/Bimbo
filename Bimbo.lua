@@ -20,9 +20,21 @@ local function GetSocketCount(link, slot)
 end
 
 
-local function Check()
+local glows = setmetatable({}, {
+	__index = function(t,i)
+		local slot = _G["Character"..i]
+		local shine = LibStub("tekShiner").new(slot, 1, 0, 0)
+		shine:SetAllPoints(slot)
+		t[i] = shine
+		return shine
+	end
+})
+
+
+local function Check(report)
 	for i in pairs(links) do links[i] = nil end
 	for _,v in pairs(slots) do links[v] = GetInventoryItemLink("player", GetInventorySlotInfo(v)) end
+	for _,f in pairs(glows) do f:Hide() end
 
 	enchantables.Finger0Slot = GetSpellInfo((GetSpellInfo(7411))) -- Only check rings if the player is an enchanter
 	enchantables.Finger1Slot = enchantables.Finger0Slot
@@ -43,7 +55,8 @@ local function Check()
 		local link = check and links[slot]
 		if link and link:match("item:%d+:0") then
 			found = true
-			print(link, "doesn't have an enchant")
+			glows[slot]:Show()
+			if report then print(link, "doesn't have an enchant") end
 		end
 	end
 
@@ -56,7 +69,8 @@ local function Check()
 			local num = GetSocketCount(link, slot)
 			if rawnum == num then
 				found = true
-				print(link2, "doesn't have an extra socket")
+				glows[slot]:Show()
+				if report then print(link2, "doesn't have an extra socket") end
 			end
 		end
 	end
@@ -65,15 +79,18 @@ local function Check()
 		local num, filled = GetSocketCount(link, slot)
 		if filled < num then
 			found = true
-			print(link, "has empty sockets")
+			glows[slot]:Show()
+			if report then print(link, "has empty sockets") end
 		end
 	end
 
-	if not found then print("All equipped items are enchanted and gemmed") end
+	if not found and report then print("All equipped items are enchanted and gemmed") end
 end
 
 
 local butt = LibStub("tekKonfig-Button").new_small(PaperDollFrame, "BOTTOMLEFT", 25, 86)
 butt:SetWidth(45) butt:SetHeight(18)
 butt:SetText("Bimbo")
-butt:SetScript("OnClick", Check)
+butt:SetScript("OnShow", function() Check() end)
+butt:SetScript("OnClick", function() Check(true) end)
+Check()
