@@ -95,4 +95,4 @@ butt:SetWidth(45) butt:SetHeight(18)
 butt:SetText("Bimbo")
 butt:SetScript("OnShow", function() Check() end)
 butt:SetScript("OnClick", function() Check(true) end)
-Check()
+if IsLoggedIn() then Check() end
