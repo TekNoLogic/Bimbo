@@ -94,5 +94,7 @@ local butt = LibStub("tekKonfig-Button").new_small(PaperDollFrame, "BOTTOMLEFT",
 butt:SetWidth(45) butt:SetHeight(18)
 butt:SetText("Bimbo")
 butt:SetScript("OnShow", function() Check() end)
+butt:SetScript("OnEvent", function(self, event, unit) if unit == "player" and self:IsVisible() then Check() end end)
+butt:RegisterEvent("UNIT_INVENTORY_CHANGED")
 butt:SetScript("OnClick", function() Check(true) end)
 if IsLoggedIn() then Check() end
