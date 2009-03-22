@@ -63,8 +63,8 @@ local function Check(report)
 	end
 
 	for slot,check in pairs(extrasockets) do
-		if check then
-			local link = links[slot]
+		local link = check and links[slot]
+		if link then
 			local id = link:match("item:(%d+)")
 			local _, link2 = GetItemInfo(id)
 			local rawnum = GetSocketCount(link2)
