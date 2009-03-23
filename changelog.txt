@@ -1,3 +1,9 @@
+3.0.9.2-Beta
+    Fixed another nil error
+    Rescan when equipped items change
+    Only run the check if we were loaded LoD
+    Don't test ranged slot if nothing is equipped
+
 3.0.9.1-Beta
     And so it begins...
 
