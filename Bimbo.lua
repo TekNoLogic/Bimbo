@@ -8,9 +8,9 @@ local enchantables = {BackSlot = true, ChestSlot = true, FeetSlot = true, HandsS
 local extrasockets = {WaistSlot = true}
 
 
-local function GetSocketCount(link, slot)
+local function GetSocketCount(link, slot, unit)
 	local num, filled = 0, 0
-	if slot then tip:SetInventoryItem("player", GetInventorySlotInfo(slot)) else tip:SetHyperlink(link) end
+	if slot then tip:SetInventoryItem(unit, GetInventorySlotInfo(slot)) else tip:SetHyperlink(link) end
 	for i=1,10 do if tip.icon[i] then num = num + 1 end end
 
 	local gem1, gem2, gem3, gem4 = link:match("item:%d+:%d+:(%d+):(%d+):(%d+):(%d+)")
@@ -91,8 +91,8 @@ local function Check(unit, report, whisper)
 		if link then
 			local id = link:match("item:(%d+)")
 			local _, link2 = GetItemInfo(id)
-			local rawnum = GetSocketCount(link2)
-			local num = GetSocketCount(link, slot)
+			local rawnum = GetSocketCount(link2, unit)
+			local num = GetSocketCount(link, slot, unit)
 			if rawnum == num then
 				found = true
 				glows[slot]:Show()
@@ -102,7 +102,7 @@ local function Check(unit, report, whisper)
 	end
 
 	for slot,link in pairs(links) do
-		local num, filled = GetSocketCount(link, slot)
+		local num, filled = GetSocketCount(link, slot, unit)
 		if filled < num then
 			found = true
 			glows[slot]:Show()
