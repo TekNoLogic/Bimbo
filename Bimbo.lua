@@ -91,7 +91,7 @@ local function Check(unit, report, whisper)
 		if link then
 			local id = link:match("item:(%d+)")
 			local _, link2 = GetItemInfo(id)
-			local rawnum = GetSocketCount(link2, unit)
+			local rawnum = GetSocketCount(link2, nil, unit)
 			local num = GetSocketCount(link, slot, unit)
 			if rawnum == num then
 				found = true
