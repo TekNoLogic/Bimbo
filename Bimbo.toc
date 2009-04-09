@@ -4,10 +4,14 @@
 ## Notes: Check for unenchanted and ungemmed items
 ## Author: Tekkub Stoutwrithe
 ## Version: Alpha
-
 ## X-Website: http://www.tekkub.net/
 ## X-Email: tekkub-wow@googlegroups.com
 ## X-Category: Inventory
+
+## LoadManagers: AddonLoader
+## X-LoadOn-Hooks: CharacterFrame_OnShow
+## X-LoadOn-CharacterFrame_OnShow: LoadAddOn('Bimbo')
+## LoadWith: Blizzard_InspectUI
 
 LibStub.lua
 tinyGratuity.lua
