@@ -9,8 +9,7 @@
 ## X-Category: Inventory
 
 ## LoadManagers: AddonLoader
-## X-LoadOn-Hooks: CharacterFrame_OnShow
-## X-LoadOn-CharacterFrame_OnShow: LoadAddOn('Bimbo')
+## X-LoadOn-Execute: CreateFrame("Frame", nil, CharacterFrame):SetScript("OnShow", function(self) LoadAddOn('Bimbo'); self:SetScript("OnShow", nil) end)
 ## LoadWith: Blizzard_InspectUI
 
 LibStub.lua
