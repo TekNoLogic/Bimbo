@@ -1,3 +1,6 @@
+3.1.0.4-Beta
+    Fix AddonLoader condition for 3.1
+
 3.0.9.3-Beta
     Now works with inspect (thanks PProvost, no thanks mikma)
 
