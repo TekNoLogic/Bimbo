@@ -3,8 +3,8 @@ local tip = BimboScanTip
 
 local links = {}
 local slots = {"BackSlot", "ChestSlot", "FeetSlot", "Finger0Slot", "Finger1Slot", "HandsSlot", "HeadSlot", "LegsSlot", "MainHandSlot", "NeckSlot", "RangedSlot", "SecondaryHandSlot", "ShoulderSlot", "Trinket0Slot", "Trinket1Slot", "WaistSlot", "WristSlot"}
-local enchantables = {BackSlot = true, ChestSlot = true, FeetSlot = true, HandsSlot = true, HeadSlot = true, LegsSlot = true, MainHandSlot = true, ShoulderSlot = true, WristSlot = true}
-local extrasockets = {WaistSlot = true}
+local enchantables = {BackSlot = true, ChestSlot = true, FeetSlot = true, HandsSlot = true, HeadSlot = true, LegsSlot = true, MainHandSlot = true, WristSlot = true}
+local extrasockets = {}
 
 
 local function GetSocketCount(link, slot, unit)
@@ -35,13 +35,15 @@ parentframes[playerGlows], parentframes[inspectGlows] = "Character", "Inspect"
 local function Check(unit, report)
 	local glows = unit == "target" and inspectGlows or playerGlows
 	local isplayer = unit == "player"
+	local level = UnitLevel(unit)
 
 	for i in pairs(links) do links[i] = nil end
 	for _,v in pairs(slots) do links[v] = GetInventoryItemLink(unit, GetInventorySlotInfo(v)) end
 	for _,f in pairs(glows) do f:Hide() end
 
-	enchantables.Finger0Slot = isplayer and GetSpellInfo((GetSpellInfo(7411))) -- Only check rings if the player is an enchanter
+	enchantables.Finger0Slot = isplayer and level >= 50 and GetSpellInfo((GetSpellInfo(7411))) -- Only check rings if the player is an enchanter and high enough level to train the recipe
 	enchantables.Finger1Slot = enchantables.Finger0Slot
+	enchantables.ShoulderSlot = level >= 60 -- Must be 60 to enchant shoulder (Heavy Knothide Armor Kit)
 
 	-- Only check waist enchant if the player is an engineer
 	-- Not checking for now, since these enchants don't really have much benefit
@@ -55,6 +57,7 @@ local function Check(unit, report)
 
 	extrasockets.HandsSlot = isplayer and GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
 	extrasockets.WristSlot = extrasockets.HandsSlot
+	extrasockets.WaistSlot = level >= 70 -- Must be 70 to socket
 
 	local found = false
 	for slot,check in pairs(enchantables) do
