@@ -1,3 +1,6 @@
+3.2.0.6-Beta
+    Add level check for head enchants
+
 3.2.0.5-Beta
     Add player level checks so that we don't tell people they're missing upgrades they can't yet get
 
