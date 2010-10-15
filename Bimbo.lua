@@ -99,7 +99,7 @@ end
 
 
 
-local butt = LibStub("tekKonfig-Button").new_small(PaperDollFrame, "BOTTOMLEFT", 25, 86)
+local butt = LibStub("tekKonfig-Button").new_small(PaperDollFrame, "BOTTOMLEFT", 12, 12)
 butt:SetWidth(45) butt:SetHeight(18)
 butt:SetText("Bimbo")
 butt:SetScript("OnEvent", function(self, event, ...) self[event](self, event, ...) end)
