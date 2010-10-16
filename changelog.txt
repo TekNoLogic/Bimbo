@@ -1,3 +1,6 @@
+4.0.0.8-Release
+    Button moved to a bad place with 4.0
+
 3.3.0.7-Release
     No changes, just tagging as a stable release
 
