@@ -129,7 +129,7 @@ end
 function butt:ADDON_LOADED(event, addon)
 	if addon ~= "Blizzard_InspectUI" then return end
 
-	local butt2 = LibStub("tekKonfig-Button").new_small(InspectFrame, "BOTTOMLEFT", 12, 12)
+	local butt2 = LibStub("tekKonfig-Button").new_small(InspectPaperDollItemsFrame, "BOTTOMLEFT", 12, 12)
 	butt2:SetText("Bimbo")
 	butt2:SetWidth(45) butt2:SetHeight(18)
 	butt2:SetScript("OnShow", butt.PLAYER_TARGET_CHANGED)
