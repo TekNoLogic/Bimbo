@@ -5,6 +5,7 @@ local links = {}
 local slots = {"BackSlot", "ChestSlot", "FeetSlot", "Finger0Slot", "Finger1Slot", "HandsSlot", "HeadSlot", "LegsSlot", "MainHandSlot", "NeckSlot", "RangedSlot", "SecondaryHandSlot", "ShoulderSlot", "Trinket0Slot", "Trinket1Slot", "WaistSlot", "WristSlot"}
 local enchantables = {BackSlot = true, ChestSlot = true, FeetSlot = true, HandsSlot = true, LegsSlot = true, MainHandSlot = true, WristSlot = true}
 local extrasockets = {}
+local _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, wands = GetAuctionItemSubClasses(1)
 
 
 local function GetSocketCount(link, slot, unit)
@@ -52,7 +53,7 @@ local function Check(unit, report)
 
 	if links.RangedSlot then
 		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
-		enchantables.RangedSlot = slottype ~= "INVTYPE_RELIC" and rangetype ~= "Wands" and rangetype ~= "Thrown" -- Can't enchant wands or thrown weapons
+		enchantables.RangedSlot = slottype ~= "INVTYPE_RELIC" and rangetype ~= wands and slottype ~= "INVTYPE_THROWN" -- Can't enchant wands or thrown weapons
 	end
 
 	if links.SecondaryHandSlot then
