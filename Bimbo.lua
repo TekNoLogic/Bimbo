@@ -54,7 +54,16 @@ local function Check(unit, report)
 		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
 		enchantables.RangedSlot = slottype ~= "INVTYPE_RELIC" and rangetype ~= "Wands" and rangetype ~= "Thrown" -- Can't enchant wands or thrown weapons
 	end
-	enchantables.SecondaryHandSlot = links.SecondaryHandSlot and select(9, GetItemInfo(links.SecondaryHandSlot)) ~= "INVTYPE_HOLDABLE" -- nor off-hand frills
+
+	if links.SecondaryHandSlot then
+		local _, _, _, ilvl, _, _, rangetype, _, slottype = GetItemInfo(links.SecondaryHandSlot)
+		if slottype == "INVTYPE_HOLDABLE" then
+			-- Frills are now enchatable, but must be ilvl >= 300
+			enchantables.SecondaryHandSlot = ilvl >= 300
+		else
+			enchantables.SecondaryHandSlot = true
+		end
+	end
 
 	extrasockets.HandsSlot = isplayer and GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
 	extrasockets.WristSlot = extrasockets.HandsSlot
