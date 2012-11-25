@@ -44,7 +44,6 @@ local function Check(unit, report)
 
 	enchantables.Finger0Slot = isplayer and level >= 50 and GetSpellInfo((GetSpellInfo(7411))) -- Only check rings if the player is an enchanter and high enough level to train the recipe
 	enchantables.Finger1Slot = enchantables.Finger0Slot
-	enchantables.HeadSlot = level >= 50 -- Must be 50 to enchant head (Arcanums)
 	enchantables.ShoulderSlot = level >= 60 -- Must be 60 to enchant shoulder (Heavy Knothide Armor Kit)
 
 	-- Only check waist enchant if the player is an engineer
