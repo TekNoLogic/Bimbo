@@ -1,4 +1,4 @@
-## Interface: 40100
+## Interface: 60000
 
 ## Title: Bimbo
 ## Notes: Check for unenchanted and ungemmed items
