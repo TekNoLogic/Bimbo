@@ -52,14 +52,8 @@ local function Check(unit, report)
 --~ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
 
 	if links.SecondaryHandSlot then
-		local _, _, _, ilvl, _, _, rangetype, _, slottype = GetItemInfo(links.SecondaryHandSlot)
-		if slottype == "INVTYPE_HOLDABLE" then
-			-- Frills are now enchatable, but must be ilvl >= 300
-			enchantables.SecondaryHandSlot = ilvl >= 300
-		else
 			enchantables.SecondaryHandSlot = true
 		end
-	end
 
 	extrasockets.HandsSlot = isplayer and GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
 	extrasockets.WristSlot = extrasockets.HandsSlot
