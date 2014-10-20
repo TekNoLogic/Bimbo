@@ -13,8 +13,11 @@ local function GetSocketCount(link, slot, unit)
 	if slot then tip:SetInventoryItem(unit, GetInventorySlotInfo(slot)) else tip:SetHyperlink(link) end
 	for i=1,10 do if tip.icon[i] then num = num + 1 end end
 
-	local gem1, gem2, gem3, gem4 = link:match("item:%d+:%d+:(%d+):(%d+):(%d+):(%d+)")
-	local filled = (gem1 ~= "0" and 1 or 0) + (gem2 ~= "0" and 1 or 0) + (gem3 ~= "0" and 1 or 0) + (gem4 ~= "0" and 1 or 0)
+    local gem1 = GetItemGem(link, 1)
+    local gem2 = GetItemGem(link, 2)
+    local gem3 = GetItemGem(link, 3)
+    local gem4 = GetItemGem(link, 3)
+	local filled = (gem1 and 1 or 0) + (gem2 and 1 or 0) + (gem3 and 1 or 0) + (gem4 and 1 or 0)
 
 	return num, filled
 end
@@ -42,31 +45,16 @@ local function Check(unit, report)
 	for _,v in pairs(slots) do links[v] = GetInventoryItemLink(unit, GetInventorySlotInfo(v)) end
 	for _,f in pairs(glows) do f:Hide() end
 
-	enchantables.Finger0Slot = isplayer and level >= 50 and GetSpellInfo((GetSpellInfo(7411))) -- Only check rings if the player is an enchanter and high enough level to train the recipe
-	enchantables.Finger1Slot = enchantables.Finger0Slot
 	enchantables.ShoulderSlot = level >= 60 -- Must be 60 to enchant shoulder (Heavy Knothide Armor Kit)
 
 	-- Only check waist enchant if the player is an engineer
-	-- Not checking for now, since these enchants don't really have much benefit
---~ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
-
-	if links.RangedSlot then
-		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
-		enchantables.RangedSlot = slottype ~= "INVTYPE_RELIC" and rangetype ~= wands and slottype ~= "INVTYPE_THROWN" -- Can't enchant wands or thrown weapons
-	end
+ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
 
 	if links.SecondaryHandSlot then
-		local _, _, _, ilvl, _, _, rangetype, _, slottype = GetItemInfo(links.SecondaryHandSlot)
-		if slottype == "INVTYPE_HOLDABLE" then
-			-- Frills are now enchatable, but must be ilvl >= 300
-			enchantables.SecondaryHandSlot = ilvl >= 300
-		else
 			enchantables.SecondaryHandSlot = true
 		end
-	end
 
-	extrasockets.HandsSlot = isplayer and GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
-	extrasockets.WristSlot = extrasockets.HandsSlot
+    -- Only belts can have extra sockets now; no more hands/bracers for BS
 	extrasockets.WaistSlot = level >= 70 -- Must be 70 to socket
 
 	local found = false
