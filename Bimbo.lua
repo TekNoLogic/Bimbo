@@ -48,8 +48,7 @@ local function Check(unit, report)
 	enchantables.ShoulderSlot = level >= 60 -- Must be 60 to enchant shoulder (Heavy Knothide Armor Kit)
 
 	-- Only check waist enchant if the player is an engineer
-	-- Not checking for now, since these enchants don't really have much benefit
---~ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
+ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
 
 	if links.SecondaryHandSlot then
 			enchantables.SecondaryHandSlot = true
