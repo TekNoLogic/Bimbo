@@ -55,8 +55,7 @@ local function Check(unit, report)
 			enchantables.SecondaryHandSlot = true
 		end
 
-	extrasockets.HandsSlot = isplayer and GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
-	extrasockets.WristSlot = extrasockets.HandsSlot
+    -- Only belts can have extra sockets now; no more hands/bracers for BS
 	extrasockets.WaistSlot = level >= 70 -- Must be 70 to socket
 
 	local found = false
