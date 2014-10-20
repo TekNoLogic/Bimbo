@@ -53,11 +53,6 @@ local function Check(unit, report)
 	-- Not checking for now, since these enchants don't really have much benefit
 --~ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
 
-	if links.RangedSlot then
-		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
-		enchantables.RangedSlot = slottype ~= "INVTYPE_RELIC" and rangetype ~= wands and slottype ~= "INVTYPE_THROWN" -- Can't enchant wands or thrown weapons
-	end
-
 	if links.SecondaryHandSlot then
 		local _, _, _, ilvl, _, _, rangetype, _, slottype = GetItemInfo(links.SecondaryHandSlot)
 		if slottype == "INVTYPE_HOLDABLE" then
