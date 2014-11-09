@@ -4,7 +4,6 @@ local tip = BimboScanTip
 local links = {}
 local slots = {"BackSlot", "ChestSlot", "FeetSlot", "Finger0Slot", "Finger1Slot", "HandsSlot", "HeadSlot", "LegsSlot", "MainHandSlot", "NeckSlot", "SecondaryHandSlot", "ShoulderSlot", "Trinket0Slot", "Trinket1Slot", "WaistSlot", "WristSlot"}
 local enchantables = {BackSlot = true, ChestSlot = true, FeetSlot = true, HandsSlot = true, LegsSlot = true, MainHandSlot = true, WristSlot = true}
-local extrasockets = {}
 local _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, wands = GetAuctionItemSubClasses(1)
 
 
@@ -65,10 +64,6 @@ local function Check(unit, report)
 		end
 	end
 
-	extrasockets.HandsSlot = isplayer and GetSpellInfo((GetSpellInfo(2018))) -- Make sure smithies are adding sockets
-	extrasockets.WristSlot = extrasockets.HandsSlot
-	extrasockets.WaistSlot = level >= 70 -- Must be 70 to socket
-
 	local found = false
 	for slot,check in pairs(enchantables) do
 		local link = check and links[slot]
@@ -76,21 +71,6 @@ local function Check(unit, report)
 			found = true
 			glows[slot]:Show()
 			if report then print(link, "doesn't have an enchant") end
-		end
-	end
-
-	for slot,check in pairs(extrasockets) do
-		local link = check and links[slot]
-		if link then
-			local id = link:match("item:(%d+)")
-			local _, link2 = GetItemInfo(id)
-			local rawnum = GetSocketCount(link2, nil, unit)
-			local num = GetSocketCount(link, slot, unit)
-			if rawnum == num then
-				found = true
-				glows[slot]:Show()
-				if report then print(link2, "doesn't have an extra socket") end
-			end
 		end
 	end
 
