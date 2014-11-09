@@ -51,7 +51,7 @@ local function Check(unit, report)
 
 	if links.RangedSlot then
 		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
-		enchantables.RangedSlot = slottype ~= "INVTYPE_RELIC" and rangetype ~= wands and slottype ~= "INVTYPE_THROWN" -- Can't enchant wands or thrown weapons
+		enchantables.RangedSlot = rangetype ~= wands and slottype ~= "INVTYPE_THROWN" -- Can't enchant wands or thrown weapons
 	end
 
 	if links.SecondaryHandSlot then
