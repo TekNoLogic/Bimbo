@@ -12,8 +12,9 @@ local function GetSocketCount(link, slot, unit)
 	if slot then tip:SetInventoryItem(unit, GetInventorySlotInfo(slot)) else tip:SetHyperlink(link) end
 	for i=1,10 do if tip.icon[i] then num = num + 1 end end
 
-	local gem1, gem2, gem3, gem4 = link:match("item:%d+:%d+:(%d+):(%d+):(%d+):(%d+)")
-	local filled = (gem1 ~= "0" and 1 or 0) + (gem2 ~= "0" and 1 or 0) + (gem3 ~= "0" and 1 or 0) + (gem4 ~= "0" and 1 or 0)
+	for i=1,num do
+		if GetItemGem(link, i) then filled = filled + 1 end
+	end
 
 	return num, filled
 end
