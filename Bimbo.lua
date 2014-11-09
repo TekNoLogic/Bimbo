@@ -3,7 +3,7 @@ local tip = BimboScanTip
 
 local links = {}
 local slots = {"BackSlot", "ChestSlot", "FeetSlot", "Finger0Slot", "Finger1Slot", "HandsSlot", "HeadSlot", "LegsSlot", "MainHandSlot", "NeckSlot", "SecondaryHandSlot", "ShoulderSlot", "Trinket0Slot", "Trinket1Slot", "WaistSlot", "WristSlot"}
-local enchantables = {BackSlot = true, ChestSlot = true, FeetSlot = true, HandsSlot = true, LegsSlot = true, MainHandSlot = true, WristSlot = true}
+local enchantables = {BackSlot = true, Finger0Slot = true, Finger1Slot = true, NeckSlot = true, MainHandSlot = true}
 local _, _, _, _, _, _, _, _, _, _, _, _, _, _, _, wands = GetAuctionItemSubClasses(1)
 
 
@@ -41,27 +41,16 @@ local function Check(unit, report)
 	for _,v in pairs(slots) do links[v] = GetInventoryItemLink(unit, GetInventorySlotInfo(v)) end
 	for _,f in pairs(glows) do f:Hide() end
 
-	enchantables.Finger0Slot = isplayer and level >= 50 and GetSpellInfo((GetSpellInfo(7411))) -- Only check rings if the player is an enchanter and high enough level to train the recipe
-	enchantables.Finger1Slot = enchantables.Finger0Slot
-	enchantables.ShoulderSlot = level >= 60 -- Must be 60 to enchant shoulder (Heavy Knothide Armor Kit)
-
-	-- Only check waist enchant if the player is an engineer
-	-- Not checking for now, since these enchants don't really have much benefit
---~ 	enchantables.WaistSlot = isplayer and GetSpellInfo((GetSpellInfo(4036)))
-
 	if links.RangedSlot then
+		-- Can't enchant wands or thrown weapons
 		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
-		enchantables.RangedSlot = rangetype ~= wands and slottype ~= "INVTYPE_THROWN" -- Can't enchant wands or thrown weapons
+		enchantables.RangedSlot = rangetype ~= wands and slottype ~= "INVTYPE_THROWN"
 	end
 
 	if links.SecondaryHandSlot then
-		local _, _, _, ilvl, _, _, rangetype, _, slottype = GetItemInfo(links.SecondaryHandSlot)
-		if slottype == "INVTYPE_HOLDABLE" then
-			-- Frills are now enchatable, but must be ilvl >= 300
-			enchantables.SecondaryHandSlot = ilvl >= 300
-		else
-			enchantables.SecondaryHandSlot = true
-		end
+		-- Can't enchant offhand frills
+		local _, _, _, _, _, _, _, _, slottype = GetItemInfo(links.SecondaryHandSlot)
+		enchantables.SecondaryHandSlot = slottype ~= "INVTYPE_HOLDABLE"
 	end
 
 	local found = false
