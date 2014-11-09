@@ -42,12 +42,6 @@ local function Check(unit, report)
 	for _,v in pairs(slots) do links[v] = GetInventoryItemLink(unit, GetInventorySlotInfo(v)) end
 	for _,f in pairs(glows) do f:Hide() end
 
-	if links.RangedSlot then
-		-- Can't enchant wands or thrown weapons
-		local _, _, _, _, _, _, rangetype, _, slottype = GetItemInfo(links.RangedSlot)
-		enchantables.RangedSlot = rangetype ~= wands and slottype ~= "INVTYPE_THROWN"
-	end
-
 	if links.SecondaryHandSlot then
 		-- Can't enchant offhand frills
 		local _, _, _, _, _, _, _, _, slottype = GetItemInfo(links.SecondaryHandSlot)
