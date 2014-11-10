@@ -1,3 +1,10 @@
+6.0.0.14-Beta
+    Only a few slots are enchantable in wod
+    Extra sockets are gone in wod
+    Better method for counting filled gemslots
+    RangedSlot is long gone
+    Relics are long gone
+
 5.1.0.13-Release
     Tagging release version
 
@@ -40,4 +47,3 @@
 
 3.0.9.1-Beta
     And so it begins...
-
