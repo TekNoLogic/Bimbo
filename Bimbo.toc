@@ -13,7 +13,6 @@
 ## LoadWith: Blizzard_InspectUI
 
 LibStub.lua
-tinyGratuity.lua
 tekIDmemo.lua
 tekShiner.lua
 tekKonfigButton.lua
